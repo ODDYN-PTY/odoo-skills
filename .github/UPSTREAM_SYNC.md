@@ -1,6 +1,7 @@
 # Upstream synchronization
 
-The scheduled workflow checks Odoo's `20.0` branch daily and opens or updates a
+The scheduled workflow checks Odoo's `20.0` branch monthly (on the first day at
+04:17 UTC) and opens or updates a
 pull request when its `skills` directory changes. It can also be started from
 the Actions tab. Review and approve the pull request before merging.
 
