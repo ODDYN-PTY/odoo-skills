@@ -30,4 +30,4 @@ read the content of the `odoo-review` skill and apply its guidance.
 
 ---
 
-Cloned from https://github.com/odoo/odoo/tree/20.0/skills (branch 20.0) into ODDYN-PTY/odoo-skills.
+Mirrored from https://github.com/odoo/odoo/tree/20.0/skills. See [.github/UPSTREAM_SYNC.md](.github/UPSTREAM_SYNC.md) for synchronization details.

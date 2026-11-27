@@ -1,0 +1,44 @@
+name: Sync upstream skills
+
+on:
+  schedule:
+    - cron: '17 4 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out this repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          path: mirror
+          persist-credentials: false
+      - name: Check out upstream
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          repository: odoo/odoo
+          ref: '20.0'
+          sparse-checkout: skills
+          path: upstream
+          persist-credentials: false
+      - name: Synchronize managed files
+        run: python3 mirror/.github/sync-upstream.py upstream
+      - name: Open or update pull request
+        uses: peter-evans/create-pull-request@22a9089034f40e5a961c8808d113e2c98fb63676 # v7
+        with:
+          token: ${{ secrets.UPSTREAM_SYNC_TOKEN }}
+          path: mirror
+          branch: automation/sync-odoo-skills
+          delete-branch: true
+          commit-message: |
+            Sync skills from Odoo 20.0
+
+            Co-authored-by: copilot-swe-agent[bot] <198982749+Copilot@users.noreply.github.com>
+          title: Sync skills from Odoo 20.0
+          body: |
+            Synchronizes the Odoo 20.0 skills directory, license and copyright notice.
+            Review the upstream changes before merging.
